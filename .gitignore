@@ -26,3 +26,4 @@ Backend/yarn.lock
 Frontend/node_modules
 Frontend/yarn.lock
 
+package.json
