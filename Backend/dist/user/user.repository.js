@@ -12,44 +12,30 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
+exports.UsersRepository = void 0;
 const common_1 = require("@nestjs/common");
-const uuid_1 = require("uuid");
-const user_schema_1 = require("./schemas/user.schema");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let UsersService = class UsersService {
+const user_schema_1 = require("./schemas/user.schema");
+let UsersRepository = class UsersRepository {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    async getUserById(userId) {
-        return this.userModel.findOne({ userId });
+    async findOne(userFilterQuery) {
+        return this.userModel.findOne(userFilterQuery);
     }
-    async getUserByEmail(email) {
-        return this.userModel.findOne({ email });
+    async find(usersFilterQuery) {
+        return this.userModel.find(usersFilterQuery);
     }
-    async getUsers() {
-        return this.userModel.find({});
-    }
-    async createUser(email, age) {
-        return this.userModel.create({
-            userId: (0, uuid_1.v4)(),
-            email,
-            age,
-            favoriteFoods: []
-        });
-    }
-    async removeById(email, age) {
-        return this.userModel.remove({ email, age });
-    }
-    async updateUser(userId, userUpdates) {
-        return this.userModel.findOneAndUpdate({ userId }, userUpdates);
+    async create(user) {
+        const newUser = new this.userModel(user);
+        return newUser.save();
     }
 };
-UsersService = __decorate([
+UsersRepository = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
-], UsersService);
-exports.UsersService = UsersService;
-//# sourceMappingURL=users.service.js.map
+], UsersRepository);
+exports.UsersRepository = UsersRepository;
+//# sourceMappingURL=user.repository.js.map

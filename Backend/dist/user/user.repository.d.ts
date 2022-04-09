@@ -6,7 +6,4 @@ export declare class UsersRepository {
     findOne(userFilterQuery: FilterQuery<User>): Promise<User>;
     find(usersFilterQuery: FilterQuery<User>): Promise<User[]>;
     create(user: User): Promise<User>;
-    deleteOne(userFilterQuery: FilterQuery<User>): Promise<User>;
-    remove(userId: string): Promise<import("mongodb").DeleteResult>;
-    findOneAndUpdate(userFilterQuery: FilterQuery<User>, user: Partial<User>): Promise<User>;
 }

@@ -31,6 +31,12 @@ let UsersRepository = class UsersRepository {
         const newUser = new this.userModel(user);
         return newUser.save();
     }
+    async deleteOne(userFilterQuery) {
+        return this.userModel.remove(userFilterQuery);
+    }
+    async remove(userId) {
+        return this.userModel.deleteOne({ userId });
+    }
     async findOneAndUpdate(userFilterQuery, user) {
         return this.userModel.findOneAndUpdate(userFilterQuery, user, { new: true });
     }
