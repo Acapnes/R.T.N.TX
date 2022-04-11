@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { AuthAPI } from "../apis/auth.api";
+import { RegisterDto } from "../dto/auth/register.dto";
 
 const Login: React.FC = () => {
 
-    const [email, setEmail] = useState("");
+    const [tasks, setTasks] = useState<RegisterDto[]>([])
+    useEffect(()=>{
+      async function fetchAll(){
+        const resp = await AuthAPI.getAll();
+        setTasks(resp);
+      }
+      fetchAll();
+    }, [])
+
+    const [email, setEmail] = useState('');
     const [emailErrored, setEmailErrored] = useState(false);
 
 
-    const [password, setPassword] = useState("");
+    const [age, setAge] =  useState(Number);
     const [passwordErrored, setPasswordErrored] = useState(false);
 
-    const handleLogin = () => {
-        if (!email) {
-            setEmailErrored(true);
-        } else {
-            setEmailErrored(false);
-        }
-        if (!password) {
-            setPasswordErrored(true);
-        } else {
-            setPasswordErrored(false);
+    const handleLogin = async () => {
+        const resp = await AuthAPI.Login({
+            email,
+            age,
+        })      
+        if(resp)
+        {
+            if(resp["_id"]!=null)
+                alert("Logged in!");
+            else
+                alert("Wrong");
         }
     }
 
@@ -30,14 +42,16 @@ const Login: React.FC = () => {
                 className="mb-4 px-8 py-4 text-md outline-none rounded-2xl"
                 type="text"
                 value={email}
+                required
                 onChange={(event) => setEmail(event.target.value)}
             />
             <input
                 placeholder="Password"
                 className="mb-4 px-8 py-4 text-md outline-none rounded-2xl"
-                type="text"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                type="number"
+                value={age}
+                required
+                onChange={(event) => setAge(event.target.valueAsNumber)}
             />
             <button onClick={handleLogin} className=" m-4 px-8 py-4 rounded-2xl bg-purple-500 text-white">
                 Login!
