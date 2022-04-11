@@ -22,6 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 Backend/node_modules
+Backend/dist
 Backend/yarn.lock
 Frontend/node_modules
 Frontend/yarn.lock
