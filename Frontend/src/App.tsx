@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { TaskAPI } from './apis/task.api';
+import { TaskDTO } from './dto/task.dto';
 
 function App() {
-  return <div className='w-screen h-screen bg-slate-100 flex justify-center items-center'>
-      <div className='w-[16rem] h-[16rem] bg-red-400 flex justify-center items-center'>
-        <a className='text-white text-3xl bg-yellow-500 p-3 rounded-xl' href='http://localhost:3000/home'> Hello world </a>
-      </div>
-  </div>
+  const [tasks, setTasks] = useState<TaskDTO[]>([])
+  useEffect(()=>{
+    async function fetchAll(){
+      const resp = await TaskAPI.getAll();
+      setTasks(resp);
+    }
+    fetchAll();
+  }, [])
+  return (
+    <div className='w-screen h-screen bg-slate-700 flex justify-center items-center'>
+      <ul>
+        {
+          tasks.map(task => {
+            return <li>{task.email}</li>
+          })
+        }
+      </ul>
+    </div>
+  );
 }
 
 export default App;
