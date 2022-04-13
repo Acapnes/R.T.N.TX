@@ -1,5 +1,5 @@
 
 export interface LoginDto{
     email: string,
-    age:number,
+    password:string,
 }

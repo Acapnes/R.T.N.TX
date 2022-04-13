@@ -25,4 +25,18 @@ export class AuthAPI {
         const data = await resp.json();
         return data;
     }
+
+    public static async SignUp(createReq: LoginDto) {
+        const resp = await fetch("http://localhost:3000/users/signup", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(createReq)
+        })
+
+        const data = await resp.json();
+        return data;
+    }
 }
