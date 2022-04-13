@@ -4,7 +4,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      "primary":"#f5f5f5"
+      "primary":"#f5f5f5",
+      blur: {
+        xs: '2px',
+      }
     },
   },
   plugins: [],
