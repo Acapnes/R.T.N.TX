@@ -13,10 +13,7 @@ export class User {
     email: string;
 
     @Prop()
-    age: number;
-
-    @Prop([String])
-    favoriteFoods: string[]
+    password: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

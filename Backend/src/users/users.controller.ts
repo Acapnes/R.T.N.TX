@@ -1,7 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 
@@ -19,14 +18,23 @@ export class UsersController {
       return this.usersService.getUsers();
   }
 
-   @Post()
-   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-       return this.usersService.createUser(createUserDto.email, createUserDto.age)
-   }
+  @Post("/login")
+  async Login(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.Login(createUserDto.email, createUserDto.password).catch(err => {
+      throw new HttpException({
+        message: err.message
+      }, HttpStatus.BAD_REQUEST);
+    })
+ }
 
-   @Post('/delete')
+  @Post("/signup")
+   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+      return this.usersService.signUp(createUserDto.email, createUserDto.password)
+  }
+ 
+ @Post('/delete')
    async deleteUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-       return this.usersService.removeById(createUserDto.email, createUserDto.age)
+       return this.usersService.removeById(createUserDto.email, createUserDto.password)
    }
 
   //  @Delete(':userId')
