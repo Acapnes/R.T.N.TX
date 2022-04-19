@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { AuthAPI } from "../../apis/auth.api";
 import { RegisterDto } from "../../dto/auth/register.dto";
@@ -6,18 +7,17 @@ const Login: React.FC = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    
     const handleLogin = async () => {
         const resp = await AuthAPI.Login({
             email,
             password,
+        }).then((response):any =>{
+            console.log(response);
+        }).catch((err)=>{
+            console.error(err);
+            alert(err);
         })
-        if (resp) {
-            if (resp["_id"] != null)
-                alert("Logged in!");
-            else
-                alert("Wrong");
-        }
     }
 
     return (
