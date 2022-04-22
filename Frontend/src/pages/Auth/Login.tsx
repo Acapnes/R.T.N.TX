@@ -1,23 +1,31 @@
 
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import { AuthAPI } from "../../apis/auth.api";
-import { RegisterDto } from "../../dto/auth/register.dto";
 
 const Login: React.FC = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
-    const handleLogin = async () => {
-        const resp = await AuthAPI.Login({
-            email,
-            password,
-        }).then((response):any =>{
-            console.log(response);
-        }).catch((err)=>{
-            console.error(err);
-            alert(err);
-        })
+
+    const handleLogin = async (e: any) => {
+        e.preventDefault();
+        try {
+            const resp = await AuthAPI.Login({
+                email,
+                password,
+            })
+            window.localStorage.setItem("email", email);
+            window.localStorage.setItem("password", password);
+            <Link to={{
+                pathname: '/home',
+
+            }} >Learn More</Link>
+        } catch (err: any) {
+            console.log(err);
+            alert("Wrong Username or Password");
+        }
+
     }
 
     return (
@@ -44,6 +52,9 @@ const Login: React.FC = () => {
                 <button onClick={handleLogin} className=" m-4 px-8 py-4 rounded-2xl bg-purple-500 text-white">
                     Login!
                 </button>
+            </div>
+            <div>
+
             </div>
             <span className="absolute bottom-0">@Copyright by <span className="font-bold">Acapnes</span> </span>
         </div>

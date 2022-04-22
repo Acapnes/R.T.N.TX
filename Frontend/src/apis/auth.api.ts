@@ -20,23 +20,27 @@ export class AuthAPI {
                 'Accept': 'application/json'
             },
             body: JSON.stringify(createReq)
+        }).then(response =>{
+            return response.json();
+        }).then(data =>{
+            console.log(data);
+        }).catch(():any =>{
+            throw new Error("Wrong Username or Password");
         })
-
-        const data = await resp.json();
-        return data;
     }
 
-    public static async SignUp(createReq: LoginDto) {
-        const resp = await fetch("http://localhost:3000/users/signup", {
+    public static async Register(createReq: RegisterDto){
+        const resp = await fetch("http://localhost:3000/users/register", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify(createReq)
+        }).then(response =>{
+            return response.json();
+        }).then(data =>{
+            console.log(data);
         })
-
-        const data = await resp.json();
-        return data;
     }
 }
