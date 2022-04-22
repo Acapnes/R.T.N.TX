@@ -27,9 +27,9 @@ export class UsersController {
     })
  }
 
-  @Post("/signup")
+  @Post("/register")
    async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-      return this.usersService.signUp(createUserDto.email, createUserDto.password)
+      return this.usersService.register(createUserDto.email, createUserDto.password)
   }
  
  @Post('/delete')

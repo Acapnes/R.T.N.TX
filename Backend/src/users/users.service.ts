@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { v4 as uuidv4 } from 'uuid';
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./schemas/user.schema";
@@ -22,17 +22,20 @@ export class UsersService {
         return this.userModel.find({});
     }
 
-    async createUser(email: string, age: number): Promise<User> {
+    async register(email: string, password: string): Promise<User> {
         return this.userModel.create({
             userId: uuidv4(),
             email,
-            age,
-            favoriteFoods: []
+            password,
         })
     }
 
-    async removeById(email: string,age:number) {
-        return this.userModel.remove({email,age});
+    async Login(email: string, password: string){
+        return this.userModel.findOne({email, password});
+    }
+
+    async removeById(email: string,password: string) {
+        return this.userModel.remove({email,password});
     }
 
     async updateUser(userId: string, userUpdates: UpdateUserDto): Promise<User> {
