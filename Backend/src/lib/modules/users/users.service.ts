@@ -1,10 +1,10 @@
 import { HttpException, Injectable } from "@nestjs/common";
 import { v4 as uuidv4 } from 'uuid';
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { User } from "./schemas/user.schema";
+import { UpdateUserDto } from "../../dto/update-user.dto";
+import { User } from "../../schemas/user.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { UserDocument } from "./schemas/user.schema";
+import { UserDocument } from "../../schemas/user.schema";
 
 @Injectable()
 export class UsersService {
