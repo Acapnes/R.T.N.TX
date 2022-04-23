@@ -1,3 +1,4 @@
-export class PhotoDto{
-    
+export class PhotoDto {
+    photoFile: string;
+    photoName: string;
 }
